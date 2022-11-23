@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+# Datomic Database init script
+# Configuration:
+# - PGSQL_HOST
+# - PGSQL_PORT
+# - PGSQL_DB
+# - PGSQL_USER
+# - PGSQL_PASS
+# - PGSQL_SSLMODE
+# - DATOMIC_LICENSE_KEY
+# - DATOMIC_HOST
+# - DATOMIC_PORT
+
+function fail() {
+  echo "$0 Failure: $1"
+  exit 1
+}
+
+PG_HOST=${PGSQL_HOST:-127.0.0.1}
+PG_PORT=${PGSQL_PORT:-5432}
+PG_USER=${PGSQL_USER:-postgres}
+PG_DB=${PGSQL_DB:-postgres}
+PG_SSLMODE=${PGSQL_SSLMODE:-allow}
+DATOMIC_PORT=${DATOMIC_PORT:-4334}
+DATOMIC_HOST=${DATOMIC_HOST:-datomic}
+
+[ "${POSTGRES_PASSWORD:-x}" == "x" ] && fail "Missing PostgreSQL password"
+[ "${DATOMIC_LICENSE_KEY:-x}" == "x" ] && fail "Missing Datomic licence key"
+[ "${DATOMIC_HOST:-x}" == "x" ] && fail "Missing Datomic hostname"
+
+NEEDEDUTILS=( psql uniq )
+for UTIL in ${NEEDEDUTILS[@]} ; do
+  if [ ! -x "`which $UTIL 2> /dev/null`" ] ; then
+    fail "Could not find $UTIL in \$PATH"
+  fi
+done
+
+
+function init-db() {
+  SCRIPT="
+    CREATE TABLE datomic_kvs
+    (
+     id text NOT NULL,
+     rev integer,
+     map text,
+     val bytea,
+     CONSTRAINT pk_id PRIMARY KEY (id )
+    )
+    WITH (
+     OIDS=FALSE
+    );"
+
+  echo "Setting up database"
+  echo $SCRIPT | PGSSLMODE=$PG_SSLMODE PGPASSWORD=$POSTGRES_PASSWORD psql -U $PG_USER -h $PG_HOST -p $PG_PORT -d $PG_DB > /dev/null || fail "Unable to create PostgreSQL table on $PG_HOST with user $PG_USER"
+}
+
+function write-transactor-properties() {
+  while read LINE
+  do
+    eval echo "$LINE"
+  done < ${1}
+}
+
+until PGPASSWORD=$POSTGRES_PASSWORD psql -h $PG_HOST -U $PG_USER -c '\q'; do
+  >&2 echo "Postgres is unavailable - sleeping"
+  sleep 1
+done
+
+echo "Postgres is ready"
+
+PGSSLMODE=$PG_SSLMODE PGPASSWORD=$POSTGRES_PASSWORD psql -U $PG_USER -h $PG_HOST -p $PG_PORT -d $PG_DB -c "SELECT * from datomic_kvs LIMIT 1" > /dev/null 2>&1|| init-db
+
+write-transactor-properties /opt/datomic-pro/bin/transactor-template.properties | uniq > /opt/datomic-pro/config/transactor.properties
+
+./bin/transactor $@
