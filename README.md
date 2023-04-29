@@ -82,7 +82,7 @@ You will need a [Docker-API compatible container runtime](https://www.testcontai
 Why only test or develop on an in-memory transactor when you will be 
 using a remote transactor in actual production?
 
-There are some [subtle differences between an in-memory transactor and a remote transactor](https://github.com/ivarref/gen-fn#tips-and-tricks-fressian-serialization-and-deserialization).
+There are some [subtle differences between an in-memory transactor and a remote transactor](https://github.com/ivarref/gen-fn#note-fressian-serialization-and-deserialization).
 
 ## Related libraries and resources
 
