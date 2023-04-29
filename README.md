@@ -99,6 +99,9 @@ If you liked this library, you may also like:
 
 ## Change log
 
+#### 2023-04-29 [NEXT_TAG](https://github.com/sikt-no/datomic-testcontainers/releases/tag/NEXT_TAG)
+Bundle Datomic peer and PostgreSQL driver.
+
 #### 2023-04-29 [0.1.3](https://github.com/sikt-no/datomic-testcontainers/releases/tag/0.1.3)
 Use Datomic version 1.0.6726. Remove need for username, password and license.
 
