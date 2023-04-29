@@ -16,14 +16,6 @@ You will need a [Docker-API compatible container runtime](https://www.testcontai
 
 ## 1-minute example
 
-Set the following environment variables before starting your REPL/tests:
-
-* `DATOMIC_HTTP_USERNAME`
-* `DATOMIC_HTTP_PASSWORD`
-* `DATOMIC_LICENSE_KEY`
-
-These variables should be available from [your Datomic account](https://my.datomic.com/account).
-
 ```clojure
 (require '[com.github.sikt-no.datomic-testcontainers :as dtc])
 
@@ -35,11 +27,6 @@ These variables should be available from [your Datomic account](https://my.datom
 ; ...
 ; 2022-11-23T10:41:21.059Z INFO - {:event :peer/cache-connection, :protocol :sql, :db-name "db", :system-root "jdbc:postgresql://localhost:49240/postgres", :db-id "db-3fb9f35a-2483-4d49-9d9f-df9255f2259f", :pid 261899, :tid 21}
 => #'my-conn
-
-; It's also possible to explicitly specify user, password and license to use:
-(def my-conn (dtc/get-conn {:datomic-http-username "my-user@example.com"
-                            :datomic-http-password "my-password"
-                            :datomic-license-key   "my-license"}))
 
 ; You can also get a DB uri:
 (dtc/get-uri)
@@ -77,10 +64,7 @@ These variables should be available from [your Datomic account](https://my.datom
     (when (and (string? v) (not-empty (str/trim v)))
       (str/trim v))))
 
-{datomic-http-username (get-env "DATOMIC_HTTP_USERNAME")
- datomic-http-password (get-env "DATOMIC_HTTP_PASSWORD")
- datomic-license-key   (get-env "DATOMIC_LICENSE_KEY")
- datomic-version       (or (get-env "DATOMIC_VERSION") "1.0.6527")
+{datomic-version       (or (get-env "DATOMIC_VERSION") "1.0.6726")
  
  ; Remove container build cache on exit:
  delete-on-exit?       (not (.exists (io/file ".nrepl-port")))
@@ -114,6 +98,9 @@ If you liked this library, you may also like:
 * [yoltq](https://github.com/ivarref/yoltq): An opinionated Datomic queue for building (more) reliable systems.
 
 ## Change log
+
+#### 2023-04-29 [NEXT_TAG](https://github.com/sikt-no/datomic-testcontainers/releases/tag/NEXT_TAG)
+Use Datomic version 1.0.6726. Remove need for username, password and license.
 
 #### 2022-11-30 [0.1.1](https://github.com/sikt-no/datomic-testcontainers/releases/tag/0.1.1)
 Initial release.

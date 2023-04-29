@@ -8,7 +8,6 @@
 # - PGSQL_USER
 # - PGSQL_PASS
 # - PGSQL_SSLMODE
-# - DATOMIC_LICENSE_KEY
 # - DATOMIC_HOST
 # - DATOMIC_PORT
 
@@ -26,7 +25,6 @@ DATOMIC_PORT=${DATOMIC_PORT:-4334}
 DATOMIC_HOST=${DATOMIC_HOST:-datomic}
 
 [ "${POSTGRES_PASSWORD:-x}" == "x" ] && fail "Missing PostgreSQL password"
-[ "${DATOMIC_LICENSE_KEY:-x}" == "x" ] && fail "Missing Datomic licence key"
 [ "${DATOMIC_HOST:-x}" == "x" ] && fail "Missing Datomic hostname"
 
 NEEDEDUTILS=( psql uniq )

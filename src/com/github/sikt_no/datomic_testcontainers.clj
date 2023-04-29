@@ -10,6 +10,8 @@
     (org.testcontainers.containers GenericContainer)
     (org.testcontainers.images.builder ImageFromDockerfile)))
 
+(def datomic-version-default "1.0.6726")
+
 (comment
   (set! *warn-on-reflection* true))
 
@@ -63,9 +65,6 @@
               (log/warn t "Error during shutdown of TCP proxy:" (ex-message t)))))))))
 
 (defn- with-datomic [{:keys [postgres-password
-                             datomic-http-username
-                             datomic-http-password
-                             datomic-license-key
                              datomic-version
                              delete-on-exit?
                              proxy-port
@@ -80,16 +79,13 @@
         docker-opts {:env-vars        {"POSTGRES_PASSWORD"   postgres-password
                                        "PGSQL_HOST"          "pgsql"
                                        "PGSQL_PORT"          "5432"
-                                       "DATOMIC_PORT"        (str proxy-port)
-                                       "DATOMIC_LICENSE_KEY" datomic-license-key}
+                                       "DATOMIC_PORT"        (str proxy-port)}
                      :network         network
                      :network-aliases ["datomic"]
                      :exposed-ports   [proxy-port]}
         prefix "no.sikt.datomic-testcontainers/"
         container (try
                     (as-> (ImageFromDockerfile. (str "no.sikt.datomic-testcontainers/datomic:" datomic-version) delete-on-exit?) $
-                          (.withBuildArg $ "DATOMIC_HTTP_USERNAME" datomic-http-username)
-                          (.withBuildArg $ "DATOMIC_HTTP_PASSWORD" datomic-http-password)
                           (.withBuildArg $ "DATOMIC_VERSION" datomic-version)
                           (.withFileFromClasspath $ "Dockerfile" (str prefix "Dockerfile"))
                           (.withFileFromClasspath $ "init" (str prefix "init"))
@@ -126,11 +122,6 @@
 
 (defonce ^:private sys (atom nil))
 
-(defn- throw-on-nil [k v]
-  (when (nil? v)
-    (log/error "Please set" k)
-    (throw (ex-info (str "Please set " k) {:missing-value-for-key k}))))
-
 (defn- with-all [opts f]
   (with-postgres
     opts
@@ -146,17 +137,11 @@
 (defn get-uri
   ([]
    (get-uri {}))
-  ([{:keys [datomic-http-username
-            datomic-http-password
-            datomic-license-key
-            datomic-version
+  ([{:keys [datomic-version
             delete-on-exit?
             db-name
             postgres-password]
-     :or   {datomic-http-username (get-env "DATOMIC_HTTP_USERNAME")
-            datomic-http-password (get-env "DATOMIC_HTTP_PASSWORD")
-            datomic-license-key   (get-env "DATOMIC_LICENSE_KEY")
-            datomic-version       (or (get-env "DATOMIC_VERSION") "1.0.6527")
+     :or   {datomic-version       (or (get-env "DATOMIC_VERSION") datomic-version-default)
             delete-on-exit?       (not (.exists (io/file ".nrepl-port")))
             db-name               "db"
             postgres-password     (or (get-env "POSTGRES_PASSWORD") (str (random-uuid)))}
@@ -165,14 +150,8 @@
      (if (nil? @sys)
        (do
          (log/info "Starting containers")
-         (throw-on-nil :datomic-http-username datomic-http-username)
-         (throw-on-nil :datomic-http-password datomic-http-password)
-         (throw-on-nil :datomic-license-key datomic-license-key)
          (with-all
-           (merge opts {:datomic-http-username datomic-http-username
-                        :datomic-http-password datomic-http-password
-                        :datomic-license-key   datomic-license-key
-                        :datomic-version       datomic-version
+           (merge opts {:datomic-version       datomic-version
                         :delete-on-exit?       delete-on-exit?
                         :db-name               db-name
                         :postgres-password     postgres-password
