@@ -7,7 +7,7 @@ Uses [clj-test-containers](https://github.com/javahippie/clj-test-containers) / 
 ## Installation
 
 ```
-com.github.sikt-no/datomic-testcontainers {:git/tag "0.1.3" :git/sha "de82c6e"}
+com.github.sikt-no/datomic-testcontainers {:git/tag "0.1.5" :git/sha "09238a6"}
 ```
 
 ## Prerequisites
@@ -99,7 +99,7 @@ If you liked this library, you may also like:
 
 ## Change log
 
-#### 2023-04-29 [NEXT_TAG](https://github.com/sikt-no/datomic-testcontainers/releases/tag/NEXT_TAG)
+#### 2023-04-29 [0.1.5](https://github.com/sikt-no/datomic-testcontainers/releases/tag/0.1.5)
 Bundle Datomic peer and PostgreSQL driver.
 
 #### 2023-04-29 [0.1.3](https://github.com/sikt-no/datomic-testcontainers/releases/tag/0.1.3)
