@@ -64,7 +64,7 @@ You will need a [Docker-API compatible container runtime](https://www.testcontai
     (when (and (string? v) (not-empty (str/trim v)))
       (str/trim v))))
 
-{datomic-version       (or (get-env "DATOMIC_VERSION") "1.0.6726")
+{datomic-version       (or (get-env "DATOMIC_VERSION") "1.0.6733")
  
  ; Remove container build cache on exit:
  delete-on-exit?       (not (.exists (io/file ".nrepl-port")))
