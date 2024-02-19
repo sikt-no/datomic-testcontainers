@@ -2,7 +2,7 @@
 
 Run a Datomic on-premise Pro transactor as a container in your tests/REPL.
 
-Uses [clj-test-containers](https://github.com/javahippie/clj-test-containers) / [testcontainers](https://www.testcontainers.org/).
+[![Clojars Project](https://img.shields.io/clojars/v/com.github.sikt-no/datomic-testcontainers.svg)](https://clojars.org/com.github.sikt-no/datomic-testcontainers)
 
 ## Installation
 
