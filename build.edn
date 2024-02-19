@@ -1,0 +1,22 @@
+{:lib com.github.sikt-no/datomic-testcontainers
+
+ :github-actions? true
+
+ :version "1.0.7075.{{git/commit-count}}"
+
+ :scm {:connection "scm:git:git://github.com/sikt-no/datomic-testcontainers.git"
+       :developerConnection "scm:git:ssh://git@github.com/sikt-no/datomic-testcontainers.git"
+       :url "https://github.com/sikt-no/datomic-testcontainers"}
+
+ :documents [{:file "CHANGELOG.md"
+              :match-exactly "## [Unreleased]"
+              :action :append-after
+              :text "\n## [{{version}}] - {{now/yyyy}}-{{now/mm}}-{{now/dd}}"}
+             {:file "README.md"
+              :match-exactly "com.github.sikt-no/datomic-testcontainers {:git/tag"
+              :action :replace
+              :keep-indent? true
+              :text "com.github.sikt-no/datomic-testcontainers {:git/tag \"{{version}}\" :git/sha \"{{git/head-short-sha}}\"}"}]
+
+ :licenses [{:name "Eclipse Public License - v 2.0"
+             :url "https://www.eclipse.org/legal/epl-2.0/"}]}

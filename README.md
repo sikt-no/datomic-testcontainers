@@ -97,19 +97,10 @@ If you liked this library, you may also like:
 * [rewriting-history](https://github.com/ivarref/rewriting-history): A library to rewrite Datomic history.
 * [yoltq](https://github.com/ivarref/yoltq): An opinionated Datomic queue for building (more) reliable systems.
 
-## Change log
+## Making a new release
 
-#### 2024-02-19 
-Bump deps.
-
-#### 2023-04-29 [0.1.5](https://github.com/sikt-no/datomic-testcontainers/releases/tag/0.1.5)
-Bundle Datomic peer and PostgreSQL driver.
-
-#### 2023-04-29 [0.1.3](https://github.com/sikt-no/datomic-testcontainers/releases/tag/0.1.3)
-Use Datomic version 1.0.6726. Remove need for username, password and license.
-
-#### 2022-11-30 [0.1.1](https://github.com/sikt-no/datomic-testcontainers/releases/tag/0.1.1)
-Initial release.
+Go to [https://github.com/sikt-no/datomic-testcontainers/actions/workflows/release.yml](https://github.com/sikt-no/clj-jwt/actions/workflows/release.yml)
+and press `Run workflow`.
 
 ## License
 
