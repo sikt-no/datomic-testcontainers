@@ -7,7 +7,7 @@ Uses [clj-test-containers](https://github.com/javahippie/clj-test-containers) / 
 ## Installation
 
 ```
-com.github.sikt-no/datomic-testcontainers {:git/tag "0.1.5" :git/sha "09238a6"}
+com.github.sikt-no/datomic-testcontainers {:git/tag "1.0.7075.11" :git/sha "33b1fd9"}
 ```
 
 ## Prerequisites

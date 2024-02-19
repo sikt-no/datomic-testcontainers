@@ -1,4 +1,6 @@
 ## [Unreleased]
+
+## [1.0.7075.11] - 2024-02-19
 ### Changed
 - Bump dependencies.
 - Mimic Datomic version.
