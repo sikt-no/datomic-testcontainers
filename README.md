@@ -99,7 +99,7 @@ If you liked this library, you may also like:
 
 ## Making a new release
 
-Go to [https://github.com/sikt-no/datomic-testcontainers/actions/workflows/release.yml](https://github.com/sikt-no/clj-jwt/actions/workflows/release.yml)
+Go to [release.yml](https://github.com/sikt-no/datomic-testcontainers/actions/workflows/release.yml)
 and press `Run workflow`.
 
 ## License
