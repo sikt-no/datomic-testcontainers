@@ -7,7 +7,7 @@ Run a Datomic on-premise Pro transactor as a container in your tests/REPL.
 ## Installation
 
 ```
-com.github.sikt-no/datomic-testcontainers {:git/tag "1.0.7075.11" :git/sha "33b1fd9"}
+com.github.sikt-no/datomic-testcontainers {:git/tag "1.0.7075.14" :git/sha "4b871eb"}
 ```
 
 ## Prerequisites

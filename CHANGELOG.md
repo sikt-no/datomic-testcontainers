@@ -1,4 +1,6 @@
 ## [Unreleased]
+
+## [1.0.7075.14] - 2024-02-19
 ### Fixed
 - Clojars release.
 
