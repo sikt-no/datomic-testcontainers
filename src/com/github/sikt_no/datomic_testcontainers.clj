@@ -10,7 +10,7 @@
     (org.testcontainers.containers GenericContainer)
     (org.testcontainers.images.builder ImageFromDockerfile)))
 
-(def datomic-version-default "1.0.6733")
+(def datomic-version-default "1.0.7075")
 
 (comment
   (set! *warn-on-reflection* true))

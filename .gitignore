@@ -3,3 +3,5 @@
 .cpcache/
 target/
 .clj-kondo/.cache/
+resources/no.sikt.datomic-testcontainers/datomic-pro*
+resources/no.sikt.datomic-testcontainers/datomic.zip

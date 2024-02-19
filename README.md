@@ -64,7 +64,7 @@ You will need a [Docker-API compatible container runtime](https://www.testcontai
     (when (and (string? v) (not-empty (str/trim v)))
       (str/trim v))))
 
-{datomic-version       (or (get-env "DATOMIC_VERSION") "1.0.6733")
+{datomic-version       (or (get-env "DATOMIC_VERSION") "1.0.7075")
  
  ; Remove container build cache on exit:
  delete-on-exit?       (not (.exists (io/file ".nrepl-port")))
@@ -98,6 +98,9 @@ If you liked this library, you may also like:
 * [yoltq](https://github.com/ivarref/yoltq): An opinionated Datomic queue for building (more) reliable systems.
 
 ## Change log
+
+#### 2024-02-19 
+Bump deps.
 
 #### 2023-04-29 [0.1.5](https://github.com/sikt-no/datomic-testcontainers/releases/tag/0.1.5)
 Bundle Datomic peer and PostgreSQL driver.
